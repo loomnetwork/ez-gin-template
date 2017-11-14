@@ -17,6 +17,7 @@ type Render struct {
 	Ext             string
 	TemplateFuncMap map[string]interface{}
 	Debug           bool
+	LayoutAbsolute  bool
 }
 
 func New() Render {
@@ -35,6 +36,8 @@ func New() Render {
 		TemplateFuncMap: nil,
 		// Debug enables debug mode
 		Debug: false,
+
+		LayoutAbsolute: false,
 	}
 
 	return r
@@ -44,6 +47,9 @@ func (r Render) Init() Render {
 	globalPartials := r.getGlobalPartials()
 
 	layout := r.TemplatesDir + r.Layout + r.Ext
+	if r.LayoutAbsolute == true {
+		layout = r.Layout + r.Ext
+	}
 
 	viewDirs, _ := filepath.Glob(r.TemplatesDir + "**/*" + r.Ext)
 
