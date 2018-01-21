@@ -98,7 +98,7 @@ func (r Render) findPartials(findPartialDir string) []string {
 }
 func (r Render) getRenderName(tpl string) string {
 	dir, file := filepath.Split(tpl)
-	dir = strings.Replace(dir, r.TemplatesDir, "", 1)
+	dir = strings.Replace(filepath.ToSlash(dir), filepath.ToSlash(r.TemplatesDir), "", 1)
 	file = strings.TrimSuffix(file, r.Ext)
 	return dir + file
 }
